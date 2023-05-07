@@ -26,9 +26,12 @@ public class Exercise {
     private Integer sets;
     @Column(nullable = false, name = "reps")
     private Integer reps;
+    @Column(name = "verificado")
+    private boolean verified;
 
 
-    public Exercise(String name, String muscle, String difficulty, String type, String description, Integer sets, Integer reps) {
+
+    public Exercise(String name, String muscle, String difficulty, String type, String description, Integer sets, Integer reps, boolean verified) {
         this.name = name;
         this.muscle = muscle;
         this.difficulty = difficulty;
@@ -36,6 +39,7 @@ public class Exercise {
         this.description = description;
         this.sets = sets;
         this.reps = reps;
+        this.verified= verified
     }
 
     public Exercise() {
@@ -105,5 +109,13 @@ public class Exercise {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
     }
 }
