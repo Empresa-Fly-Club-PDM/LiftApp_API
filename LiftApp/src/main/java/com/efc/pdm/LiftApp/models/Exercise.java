@@ -39,7 +39,7 @@ public class Exercise {
         this.description = description;
         this.sets = sets;
         this.reps = reps;
-        this.verified= verified
+        this.verified= verified;
     }
 
     public Exercise() {
