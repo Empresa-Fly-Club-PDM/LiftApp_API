@@ -15,12 +15,15 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
-    @Column(nullable= false, unique= true, length= 150 ,name = "nombrecompleto")
+    @Column(nullable= false, length= 150 ,name = "nombrecompleto")
     private String nombrecompleto;
     @Column(nullable= false, unique= true, length= 150 ,name = "email")
     private String email;
-    @Column(nullable= false, length=64, name = "password")
+    @Column(nullable= false, length=128, name = "password")
     private String password;
+
+    @Column(nullable= false, name = "password_state")
+    private Boolean passwordState;
 
     @Column(nullable= false, name = "role")
     @Enumerated(EnumType.STRING)
@@ -29,11 +32,12 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String nombrecompleto, String email, String password, Role role) {
+    public User(String nombrecompleto, String email, String password, Role role, Boolean passwordState) {
         this.nombrecompleto = nombrecompleto;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.passwordState = passwordState;
     }
 
     @Override
@@ -113,4 +117,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    public Boolean getPasswordState() {
+        return passwordState;
+    }
+
+    public void setPasswordState(Boolean passwordState) {
+        this.passwordState = passwordState;
+    }
 }

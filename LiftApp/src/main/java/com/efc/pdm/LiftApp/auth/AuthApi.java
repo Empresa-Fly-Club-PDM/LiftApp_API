@@ -30,4 +30,16 @@ public class AuthApi {
 			authService.register(newUser);
 			return ResponseEntity.status(HttpStatus.CREATED).build();
 		}
+
+	@GetMapping("/recoverpassword")
+	public ResponseEntity recoverPassword(@RequestBody String email) {
+		User recoveryUser = authService.searchByEmail(email);
+		if(recoveryUser != null){
+			System.out.println("userfound");
+			authService.changePasswordOTP(email);
+			return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+		}else{
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+		}
+	}
 }

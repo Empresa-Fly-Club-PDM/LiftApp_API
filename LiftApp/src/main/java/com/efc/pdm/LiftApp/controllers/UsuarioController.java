@@ -22,23 +22,18 @@ public class UsuarioController {
 	@GetMapping("/get")
 	public List<User> list() {
 		return userService.getUsers();
-	}
+	}//done
 
 	@PutMapping("/edit/{id}")
 	public ResponseEntity updateUser(@RequestBody User updatedUser, @PathVariable Integer id) {
 		userService.editUser(updatedUser, id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
-
-	@GetMapping("/checkExist")
-	public ResponseEntity recoverPassword(@RequestBody String email) {
-		if(userService.searchByEmail(email).size()>0){
-			return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-		}else{
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-		}
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity closeAccount(@PathVariable Integer id){
+		userService.deleteUser(id);
+		return ResponseEntity.status(HttpStatus.GONE).build();
 	}
-
 	@PutMapping("/recovery/{id}")
 	public ResponseEntity resetPassword(@RequestBody String newPassword, @PathVariable Integer id){
 		userService.changePassword(newPassword,id);
