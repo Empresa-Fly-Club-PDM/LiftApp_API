@@ -26,12 +26,13 @@ public class Exercise {
     @Column(name = "verificado")
     private boolean verified;
 
-    // TODO() create model of Routine
+    @JoinColumn(name = "rutina_idRutina", referencedColumnName = "id")
+    @ManyToOne
+    private Routine id_routine;
 
-    @JoinColumn(name = "rutina_User_idUser", referencedColumnName = "id")
+    @JoinColumn(name = "rutina_User_idUser", referencedColumnName = "User_idUser")
     @ManyToOne
     private User id_user;
-
 
     public Exercise(String name, String muscle, String difficulty, String type, String description, Integer sets, Integer reps) {
         this.name = name;

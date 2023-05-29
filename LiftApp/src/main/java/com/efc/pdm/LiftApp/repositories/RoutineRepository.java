@@ -1,12 +1,12 @@
 package com.efc.pdm.LiftApp.repositories;
 
 import com.efc.pdm.LiftApp.models.Exercise;
+import com.efc.pdm.LiftApp.models.Routine;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
-    // TODO() all implementation
+public interface RoutineRepository  extends JpaRepository<Routine, Long> {
+
+    // TODO() -> All implementation
 }
