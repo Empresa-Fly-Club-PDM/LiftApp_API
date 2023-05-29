@@ -1,18 +1,15 @@
 package com.efc.pdm.LiftApp.models;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "ejercicios")
 public class Exercise {
 
     @Id
-    private Long id;
-    @Column(nullable = false, unique = true, length = 150, name = "nombre_rutina")
+    private Integer id;
+    @Column(nullable = false, unique = true, length = 150, name = "nombre")
     private String name;
     @Column(nullable = false, unique = true, length = 20, name = "musculo")
     private String muscle;
@@ -29,9 +26,14 @@ public class Exercise {
     @Column(name = "verificado")
     private boolean verified;
 
+    // TODO() create model of Routine
+
+    @JoinColumn(name = "rutina_User_idUser", referencedColumnName = "id")
+    @ManyToOne
+    private User id_user;
 
 
-    public Exercise(String name, String muscle, String difficulty, String type, String description, Integer sets, Integer reps, boolean verified) {
+    public Exercise(String name, String muscle, String difficulty, String type, String description, Integer sets, Integer reps) {
         this.name = name;
         this.muscle = muscle;
         this.difficulty = difficulty;
@@ -39,7 +41,6 @@ public class Exercise {
         this.description = description;
         this.sets = sets;
         this.reps = reps;
-        this.verified= verified;
     }
 
     public Exercise() {
@@ -103,11 +104,11 @@ public class Exercise {
         this.reps = reps;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
