@@ -14,15 +14,6 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     UserRepository userRepo;
-    public User register(User newUser){
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        Double salary = 0.0, limit = 0.0;
-        String rawPasword= newUser.getPassword();
-        String encodedPassword=passwordEncoder.encode(rawPasword);
-        User auxuser = new User(newUser.getNombrecompleto(),newUser.getEmail(),encodedPassword, newUser.getRole());
-        User user = userRepo.save(auxuser);
-        return user;
-    }
 
     public List<User> getUsers(){
         return userRepo.findAll();
@@ -63,10 +54,14 @@ public class UserService {
 
     }
 
-
-    public List<User> searchByEmail(String email) {
-        List<User> usuario = userRepo.findExistence(email);
+    public User searchByEmail(String email) {
+        User usuario = userRepo.UserfindExistence(email);
         return usuario;
+    }
+
+    public void deleteUser(Integer id){
+        User deluser = userRepo.getById(id);
+        userRepo.delete(deluser);
     }
 
     public Optional<User> changePassword(String newPassword, Integer id) {
@@ -75,6 +70,7 @@ public class UserService {
         return userRepo.findById(id)
                 .map(user -> {
                     user.setPassword(encodedPassword);
+                    user.setPasswordState(Boolean.FALSE);
                     return userRepo.save(user);
                 });
     }
