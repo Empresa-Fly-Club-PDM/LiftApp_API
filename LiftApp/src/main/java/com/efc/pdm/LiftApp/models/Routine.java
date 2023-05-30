@@ -8,6 +8,7 @@ public class Routine {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(nullable = false, unique = true, length = 150, name = "nombre")
     private String name;

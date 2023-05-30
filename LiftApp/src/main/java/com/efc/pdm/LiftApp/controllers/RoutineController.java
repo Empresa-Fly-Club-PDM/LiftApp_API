@@ -1,14 +1,10 @@
 package com.efc.pdm.LiftApp.controllers;
 
-import com.efc.pdm.LiftApp.models.Exercise;
 import com.efc.pdm.LiftApp.models.Routine;
-import com.efc.pdm.LiftApp.repositories.ExerciseRepository;
 import com.efc.pdm.LiftApp.repositories.RoutineRepository;
-import com.efc.pdm.LiftApp.services.ExerciseService;
 import com.efc.pdm.LiftApp.services.RoutineService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
