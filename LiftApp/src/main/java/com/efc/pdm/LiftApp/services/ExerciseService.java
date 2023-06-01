@@ -2,35 +2,67 @@ package com.efc.pdm.LiftApp.services;
 
 import com.efc.pdm.LiftApp.models.Exercise;
 import com.efc.pdm.LiftApp.repositories.ExerciseRepository;
+import com.efc.pdm.LiftApp.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-
+@Service
 public class ExerciseService {
+    @Autowired
     ExerciseRepository exerciseRepo;
 
-
-    /* Create exercise */
-    public Exercise createExercise(Exercise newExc) {
-        return exerciseRepo.save(newExc);
+    @Autowired
+    UserRepository userRepository;
+    public Exercise AddVerifiedExercise(Exercise newExc, Integer id) {
+        Exercise auxexc = new Exercise(newExc.getName(),newExc.getMuscle(), newExc.getDifficulty(), newExc.getType(), newExc.getDescription(), newExc.getSets(),newExc.getReps(),true,userRepository.getReferenceById(id));
+        Exercise exc = exerciseRepo.save(auxexc);
+        return exc;
     }
 
-    public List<Exercise> getAllExercises() {
-        return exerciseRepo.findAll();
+    public Exercise AddEarringExercise(Exercise newExc, Integer id) {
+        Exercise auxexc = new Exercise(newExc.getName(),newExc.getMuscle(), newExc.getDifficulty(), newExc.getType(), newExc.getDescription(), newExc.getSets(),newExc.getReps(),false,userRepository.getReferenceById(id));
+        Exercise exc = exerciseRepo.save(auxexc);
+        return exc;
+    }
+
+    public List<Exercise> getVerifiedExercises() {
+        return exerciseRepo.getExerciseByVerified(true);
+    }
+
+    public List<Exercise> getEarringExercises(){
+        return exerciseRepo.getExerciseByVerified(false);
     }
 
     /* Update exercise */
-    public Exercise updateExercise(Exercise exercise) {
-        return exerciseRepo.save(exercise);
+
+    public Optional<Exercise> editExc(Exercise newExce, Integer excid){
+        return exerciseRepo.findById(excid)
+                .map(exc -> {
+                    exc.setName(newExce.getName());
+                    exc.setMuscle(newExce.getMuscle());
+                    exc.setDifficulty(newExce.getDifficulty());
+                    exc.setType(newExce.getType());
+                    exc.setDescription(newExce.getDescription());
+                    exc.setSets(newExce.getSets());
+                    exc.setReps(newExce.getReps());
+                    return exerciseRepo.save(exc);
+                });
     }
 
     /* Delete exersice by id */
-    public void deleteExerciseById(Long id) {
-        Exercise delExc = exerciseRepo.getById(id);
-        exerciseRepo.delete(delExc);
+    public void deleteExerciseById(Integer id) {
+        Exercise delexc = exerciseRepo.getReferenceById(id);
+        exerciseRepo.delete(delexc);
     }
 
-
-
+    public Optional<Exercise> AuthorizeExercise(Integer id) {
+        return exerciseRepo.findById(id)
+                .map(exc->{
+                    exc.setVerified(true);
+                    return exerciseRepo.save(exc);
+                });
+    }
 }
