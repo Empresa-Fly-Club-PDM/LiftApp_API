@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
-    // TODO() all implementation
+public interface ExerciseRepository extends JpaRepository<Exercise, Integer> {
+    List<Exercise>getExerciseByVerified(Boolean verified);
 }

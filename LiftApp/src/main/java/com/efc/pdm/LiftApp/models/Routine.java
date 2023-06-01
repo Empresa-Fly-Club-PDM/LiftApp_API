@@ -21,16 +21,16 @@ public class Routine {
     @Column(name = "verificado")
     private boolean verified;
 
-    @JoinColumn(name = "User_idUser", referencedColumnName = "id")
     @ManyToOne
-    private User id_user;
+    private User user;
 
-    public Routine(String name, String difficulty, String time, String tag, User id_user) {
+    public Routine(String name, String difficulty, String time, String tag, boolean verified, User user) {
         this.name = name;
         this.difficulty = difficulty;
         this.time = time;
         this.tag = tag;
-        this.id_user = id_user;
+        this.verified = verified;
+        this.user = user;
     }
 
     public Routine(){
@@ -61,10 +61,6 @@ public class Routine {
         return verified;
     }
 
-    public User getId_user() {
-        return id_user;
-    }
-
     public void setId(Integer id) {
         this.id = id;
     }
@@ -89,9 +85,12 @@ public class Routine {
         this.verified = verified;
     }
 
-    public void setId_user(User id_user) {
-        this.id_user = id_user;
+
+    public User getUser() {
+        return user;
     }
 
-
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
