@@ -1,6 +1,8 @@
 package com.efc.pdm.LiftApp.models;
 
 
+import net.bytebuddy.description.modifier.Ownership;
+
 import javax.persistence.*;
 
 @Entity
@@ -27,11 +29,14 @@ public class Exercise {
     @Column(nullable = false ,name = "verificado")
     private boolean verified;
 
+    @Column(nullable = false ,name = "ownership")
+    private Integer ownership;
+
     @ManyToOne
     private User user;
 
 
-    public Exercise(String name, String muscle, String difficulty, String type, String description, Integer sets, Integer reps, boolean verified, User user) {
+    public Exercise(String name, String muscle, String difficulty, String type, String description, Integer sets, Integer reps, boolean verified, User user, Integer Ownership){
         this.name = name;
         this.muscle = muscle;
         this.difficulty = difficulty;
@@ -41,6 +46,7 @@ public class Exercise {
         this.reps = reps;
         this.verified = verified;
         this.user = user;
+        this.ownership = Ownership;
     }
 
     public Exercise() {
@@ -126,5 +132,13 @@ public class Exercise {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Integer getOwnership() {
+        return ownership;
+    }
+
+    public void setOwnership(Integer ownership) {
+        this.ownership = ownership;
     }
 }
