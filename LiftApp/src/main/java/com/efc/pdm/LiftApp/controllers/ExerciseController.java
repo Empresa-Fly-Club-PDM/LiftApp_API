@@ -23,15 +23,18 @@ public class ExerciseController {
     @Autowired
     ExerciseService exerciseService;
 
-    @GetMapping("/get/verified")
+    //DONE
+    @GetMapping("/get/admin/verified")
     public List<Exercise> listVerified() {
-        return exerciseService.getVerifiedExercises();
-    }
-    @GetMapping("/get/earring")
-    public List<Exercise> listEarring() {
-        return exerciseService.getEarringExercises();
+        return exerciseService.VerifiedAdminExc();
     }
 
+
+    //DONE
+    @GetMapping("/search/user/verified/{query}")
+    public List<Exercise> searchListVerified(@PathVariable String query) {
+        return exerciseService.searchExcDatabase(query);
+    }
 
     @GetMapping("/details/{id}")
     public Optional<Exercise> excDetails(@PathVariable Integer id) {
@@ -44,28 +47,48 @@ public class ExerciseController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
+
+    //DONE
     @PostMapping("/post/admin/{id}")
     public ResponseEntity createExc(@RequestBody @Valid Exercise newExc, @PathVariable Integer id) {
         exerciseService.AddVerifiedExercise(newExc,id);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    //DONE
     @PostMapping("/post/user/{id}")
     public ResponseEntity createExcUser(@RequestBody @Valid Exercise newExc, @PathVariable Integer id) {
         exerciseService.AddEarringExercise(newExc,id);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+    //DONE
+    @PostMapping("/post/user/personal/{id}")
+    public ResponseEntity createMyExc(@RequestBody @Valid Exercise newExc, @PathVariable Integer id) {
+        exerciseService.AddMyExercise(newExc,id);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 
+    //DONE
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteById(@PathVariable("id") Integer id) {
         exerciseService.deleteExerciseById(id);
         return ResponseEntity.status(HttpStatus.GONE).build();
     }
 
+    //DONE
+    @DeleteMapping("/deny/{id}")
+    public ResponseEntity denyExc(@PathVariable("id") Integer id) {
+        exerciseService.denyExercise(id);
+        return ResponseEntity.status(HttpStatus.GONE).build();
+    }
+
+
+    //DONE
     @PutMapping("/autorizar/{id}")
     public ResponseEntity authorizeByID(@PathVariable("id") Integer id) {
         exerciseService.AuthorizeExercise(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
+
 
 }

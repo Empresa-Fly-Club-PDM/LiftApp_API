@@ -17,28 +17,44 @@ public class ExerciseService {
 
     @Autowired
     UserRepository userRepository;
-    public Exercise AddVerifiedExercise(Exercise newExc, Integer id) {
-        Exercise auxexc = new Exercise(newExc.getName(),newExc.getMuscle(), newExc.getDifficulty(), newExc.getType(), newExc.getDescription(), newExc.getSets(),newExc.getReps(),true,userRepository.getReferenceById(id));
-        Exercise exc = exerciseRepo.save(auxexc);
-        return exc;
+
+    //Ejercicios debe crearse bajo las situaciónes:
+    //Consideraciones en el servicio:
+    //Administrador
+    //Administrador debe ver todas las solicitudes de los usuarios verified = false, ownership = 1(pertenece a pendientes)
+    public List<Exercise> EarringUserExc() {
+        return exerciseRepo.getExerciseByVerifiedAndOwnership(false,1);
     }
 
-    public Exercise AddEarringExercise(Exercise newExc, Integer id) {
-        Exercise auxexc = new Exercise(newExc.getName(),newExc.getMuscle(), newExc.getDifficulty(), newExc.getType(), newExc.getDescription(), newExc.getSets(),newExc.getReps(),false,userRepository.getReferenceById(id));
-        Exercise exc = exerciseRepo.save(auxexc);
-        return exc;
+    //Administrador debe poder aprobarlo(verified = true, ownership pasa a 0 owned by app, envia un correo notificando al user)
+    public Optional<Exercise> AuthorizeExercise(Integer id) {
+        return exerciseRepo.findById(id)
+                .map(exc->{
+                    exc.setVerified(true);
+                    exc.setOwnership(0);
+                    return exerciseRepo.save(exc);
+                });
+    }
+    //Administrador debe poder negarlo (Elimina de la base de datos)
+    public void denyExercise(Integer id) {
+        Exercise delexc = exerciseRepo.getReferenceById(id);
+        exerciseRepo.delete(delexc);
     }
 
-    public List<Exercise> getVerifiedExercises() {
-        return exerciseRepo.getExerciseByVerified(true);
+    //Administrador debe poder visualizar la base de datos oficial (verified true, ownership en 0)
+    public List<Exercise> VerifiedAdminExc() {
+        return exerciseRepo.getExerciseByVerifiedAndOwnership(true,0);
     }
 
-    public List<Exercise> getEarringExercises(){
-        return exerciseRepo.getExerciseByVerified(false);
+    //Administrador debe poder eliminar el ejercicio
+    public void deleteExerciseById(Integer id) {
+        Exercise delexc = exerciseRepo.getReferenceById(id);
+        exerciseRepo.delete(delexc);
     }
 
 
     /* Update exercise */
+
 
     public Optional<Exercise> editExc(Exercise newExce, Integer excid){
         return exerciseRepo.findById(excid)
@@ -64,11 +80,42 @@ public class ExerciseService {
         exerciseRepo.delete(delexc);
     }
 
-    public Optional<Exercise> AuthorizeExercise(Integer id) {
-        return exerciseRepo.findById(id)
-                .map(exc->{
-                    exc.setVerified(true);
-                    return exerciseRepo.save(exc);
-                });
+    //Administrador debe poder crear ejercico verificado
+    public Exercise AddVerifiedExercise(Exercise newExc, Integer id) {
+        Exercise auxexc = new Exercise(newExc.getName(),newExc.getMuscle(), newExc.getDifficulty(), newExc.getType(), newExc.getDescription(), newExc.getSets(),newExc.getReps(),true,userRepository.getReferenceById(id),0);
+        Exercise exc = exerciseRepo.save(auxexc);
+        return exc;
     }
+
+
+
+    //Usuario
+    //Usuario debe poder ver sus ejercicios (verified = false, ownership 2) join a usuarios para ver por id de usuario
+
+    public List<Exercise> getPersonalExc(Integer id) {
+        return exerciseRepo.getMyExercises(id);
+    }
+    //El usuario debe poder ingresar una petición para verificación (verified false, ownership 1)
+    public Exercise AddEarringExercise(Exercise newExc, Integer id) {
+        Exercise auxexc = new Exercise(newExc.getName(),newExc.getMuscle(), newExc.getDifficulty(), newExc.getType(), newExc.getDescription(), newExc.getSets(),newExc.getReps(),false,userRepository.getReferenceById(id),1);
+        Exercise exc = exerciseRepo.save(auxexc);
+        return exc;
+    }
+    //El usuario debe poder crear sus ejercicios (verified = false, ownership 2)
+    public Exercise AddMyExercise(Exercise newExc, Integer id) {
+        Exercise auxexc = new Exercise(newExc.getName(),newExc.getMuscle(), newExc.getDifficulty(), newExc.getType(), newExc.getDescription(), newExc.getSets(),newExc.getReps(),false,userRepository.getReferenceById(id),2);
+        Exercise exc = exerciseRepo.save(auxexc);
+        return exc;
+    }
+
+    //El usuario debe poder buscar entre sus ejercicios y los ejercicios globales primero los suyos (Query ownership 0 y 2)
+    public List<Exercise> searchExcDatabase(String query){
+        return exerciseRepo.searchExercises(query);
+    }
+
+
+
+
+
+
 }
