@@ -1,6 +1,7 @@
 package com.efc.pdm.LiftApp.services;
 
 import com.efc.pdm.LiftApp.models.Exercise;
+import com.efc.pdm.LiftApp.models.User;
 import com.efc.pdm.LiftApp.repositories.ExerciseRepository;
 import com.efc.pdm.LiftApp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,7 @@ public class ExerciseService {
         return exerciseRepo.getExerciseByVerified(false);
     }
 
+
     /* Update exercise */
 
     public Optional<Exercise> editExc(Exercise newExce, Integer excid){
@@ -50,6 +52,10 @@ public class ExerciseService {
                     exc.setReps(newExce.getReps());
                     return exerciseRepo.save(exc);
                 });
+    }
+
+    public Optional<Exercise> getExcDetails(Integer id) {
+        return exerciseRepo.findById(id);
     }
 
     /* Delete exersice by id */
