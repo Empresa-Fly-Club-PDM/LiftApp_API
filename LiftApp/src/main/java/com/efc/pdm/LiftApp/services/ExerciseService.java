@@ -1,6 +1,7 @@
 package com.efc.pdm.LiftApp.services;
 
 import com.efc.pdm.LiftApp.models.Exercise;
+import com.efc.pdm.LiftApp.models.User;
 import com.efc.pdm.LiftApp.repositories.ExerciseRepository;
 import com.efc.pdm.LiftApp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,9 @@ public class ExerciseService {
         exerciseRepo.delete(delexc);
     }
 
-    //Administrador debe poder editar un ejercicio
+
+    /* Update exercise */
+
 
     public Optional<Exercise> editExc(Exercise newExce, Integer excid){
         return exerciseRepo.findById(excid)
@@ -67,11 +70,14 @@ public class ExerciseService {
                 });
     }
 
-
-    //se debe seleccionar 1 ejercicio para el detalle de este.(by id)
-
-    public Optional<Exercise> getActualExc(Integer id){
+    public Optional<Exercise> getExcDetails(Integer id) {
         return exerciseRepo.findById(id);
+    }
+
+    /* Delete exersice by id */
+    public void deleteExerciseById(Integer id) {
+        Exercise delexc = exerciseRepo.getReferenceById(id);
+        exerciseRepo.delete(delexc);
     }
 
     //Administrador debe poder crear ejercico verificado

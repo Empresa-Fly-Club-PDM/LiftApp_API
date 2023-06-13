@@ -2,6 +2,7 @@ package com.efc.pdm.LiftApp.controllers;
 
 
 import com.efc.pdm.LiftApp.models.Exercise;
+import com.efc.pdm.LiftApp.models.User;
 import com.efc.pdm.LiftApp.repositories.ExerciseRepository;
 import com.efc.pdm.LiftApp.services.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,21 +36,11 @@ public class ExerciseController {
         return exerciseService.searchExcDatabase(query);
     }
 
-
-    //DONE
-    @GetMapping("/get/admin/{id}")
-    public Optional<Exercise> getOneEXC(@PathVariable Integer id) {
-        return exerciseService.getActualExc(id);
+    @GetMapping("/details/{id}")
+    public Optional<Exercise> excDetails(@PathVariable Integer id) {
+        return exerciseService.getExcDetails(id);
     }
 
-
-    //DONE
-    @GetMapping("/get/admin/earring")
-    public List<Exercise> listEarring() {
-        return exerciseService.EarringUserExc();
-    }
-
-    //DONE
     @PutMapping("/edit/{id}")
     public ResponseEntity updateExpense(@RequestBody Exercise updatedExc, @PathVariable Integer id) {
         exerciseService.editExc(updatedExc, id);
