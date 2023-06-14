@@ -49,6 +49,11 @@ public class Exercise {
         this.ownership = Ownership;
     }
 
+    public Exercise(Integer idExercise){
+        super();
+        this.id=idExercise;
+    }
+
     public Exercise() {
 
     }

@@ -1,52 +1,68 @@
 package com.efc.pdm.LiftApp.controllers;
 
+import com.efc.pdm.LiftApp.models.Exercise;
 import com.efc.pdm.LiftApp.models.Routine;
 import com.efc.pdm.LiftApp.repositories.RoutineRepository;
 import com.efc.pdm.LiftApp.services.RoutineService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rutina")
+@RequestMapping("/routine")
 public class RoutineController {
 
-
-    RoutineRepository rouRepository;
-    RoutineService rouService;
-
-    @GetMapping("/get")
-    public List<Routine> list() {
-        return rouService.getAllRoutines();
+    @Autowired RoutineService routineService;
+//Add a new blank routine
+    @PostMapping("/add/{id}")
+    public ResponseEntity createRoutine(@RequestBody @Valid Routine newRoutine, @PathVariable Integer id) {
+        routineService.createRoutine(newRoutine,id);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    //Add an exercise to a routine
+    @PutMapping("/addExercise/{routineid}/{exerciseid}")
+    public ResponseEntity addExerciseToRoutine(@PathVariable Integer routineid, @PathVariable Integer exerciseid) {
+        routineService.AddExcToRoutine(routineid,exerciseid);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
+
+    //Remove an exercise of a rotuine
+    @PutMapping("/removeExercise/{routineid}/{exerciseid}")
+    public ResponseEntity removeExerciseToRoutine(@PathVariable Integer routineid, @PathVariable Integer exerciseid) {
+        routineService.RemoveExcToRoutine(routineid,exerciseid);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
+
+    //Get a routine Exercises
+    @GetMapping("/detail/{id}")
+    public List<Exercise> getRoutineExercise(@PathVariable Integer id) {
+        return routineService.getRoutineExc(id);
+    }
+
+    //Get Users Routine
+    @GetMapping("/myRoutines/{id}")
+    public List<Routine> getMyRoutines(@PathVariable Integer id) {
+        return routineService.findAllMyRoutines(id);
+    }
+
+    //Edit the fields of a routine
     @PutMapping("/edit/{id}")
-    public ResponseEntity editarRutina(@PathVariable Long id) {
-        Routine rouUpdate = rouRepository.getById(id);
-        if (rouUpdate != null){
-            rouService.updateRoutine(rouUpdate);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-        }else{
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-        }
+    public ResponseEntity updateRoutine(@RequestBody Routine updatedRoutine, @PathVariable Integer id) {
+        routineService.editRoutine(updatedRoutine, id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
-    @PostMapping("/post")
-    public ResponseEntity createRou(@RequestBody Routine rou) {
-        Routine rutina = rouService.createRoutine(rou);
-        return ResponseEntity.status(HttpStatus.CREATED).body(rutina);
-    }
-
+    //Delete routine by id
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> eliminarRutina(@PathVariable long id) {
-        Routine rouExistente = rouRepository.getById(id);
-        if (rouExistente != null) {
-            rouService.deleteRoutineById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity deleteById(@PathVariable("id") Integer id) {
+        routineService.deleteRotineById(id);
+        return ResponseEntity.status(HttpStatus.GONE).build();
     }
+
+
 }
