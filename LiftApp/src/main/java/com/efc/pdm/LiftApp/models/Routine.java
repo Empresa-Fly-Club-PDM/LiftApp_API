@@ -1,12 +1,12 @@
 package com.efc.pdm.LiftApp.models;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity()
 @Table(name = "rutina")
 public class Routine {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -18,18 +18,17 @@ public class Routine {
     private String time;
     @Column(nullable = false, unique = true, length = 250, name = "tag")
     private String tag;
-    @Column(name = "verificado")
-    private boolean verified;
-
     @ManyToOne
     private User user;
+    @ManyToMany
+    @JoinTable(name="routine_exc",joinColumns = @JoinColumn(name = "routine_id"),inverseJoinColumns = @JoinColumn(name = "ejercicios_id"))
+    private Set<Exercise> exercises = new HashSet<>();
 
-    public Routine(String name, String difficulty, String time, String tag, boolean verified, User user) {
+    public Routine(String name, String difficulty, String time, String tag, User user) {
         this.name = name;
         this.difficulty = difficulty;
         this.time = time;
         this.tag = tag;
-        this.verified = verified;
         this.user = user;
     }
 
@@ -57,10 +56,6 @@ public class Routine {
         return tag;
     }
 
-    public boolean isVerified() {
-        return verified;
-    }
-
     public void setId(Integer id) {
         this.id = id;
     }
@@ -81,16 +76,27 @@ public class Routine {
         this.tag = tag;
     }
 
-    public void setVerified(boolean verified) {
-        this.verified = verified;
-    }
-
-
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<Exercise> getExercises() {
+        return exercises;
+    }
+
+    public void setExercises(Set<Exercise> exercises) {
+        this.exercises = exercises;
+    }
+
+    public void addExercise(Exercise exercise){
+        this.exercises.add(exercise);
+    }
+
+    public void removeExercise(Exercise exercise){
+        this.exercises.remove(exercise);
     }
 }

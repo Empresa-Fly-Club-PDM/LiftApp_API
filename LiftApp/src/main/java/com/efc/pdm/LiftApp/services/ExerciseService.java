@@ -46,13 +46,6 @@ public class ExerciseService {
         return exerciseRepo.getExerciseByVerifiedAndOwnership(true,0);
     }
 
-    //Administrador debe poder eliminar el ejercicio
-    public void deleteExerciseById(Integer id) {
-        Exercise delexc = exerciseRepo.getReferenceById(id);
-        exerciseRepo.delete(delexc);
-    }
-
-
     /* Update exercise */
 
 
