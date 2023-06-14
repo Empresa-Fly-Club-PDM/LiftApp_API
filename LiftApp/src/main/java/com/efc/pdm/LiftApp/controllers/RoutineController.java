@@ -31,6 +31,13 @@ public class RoutineController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
+    //Remove an exercise of a rotuine
+    @PutMapping("/removeExercise/{routineid}/{exerciseid}")
+    public ResponseEntity removeExerciseToRoutine(@PathVariable Integer routineid, @PathVariable Integer exerciseid) {
+        routineService.RemoveExcToRoutine(routineid,exerciseid);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
+
     //Get a routine Exercises
     @GetMapping("/detail/{id}")
     public List<Exercise> getRoutineExercise(@PathVariable Integer id) {
@@ -41,6 +48,20 @@ public class RoutineController {
     @GetMapping("/myRoutines/{id}")
     public List<Routine> getMyRoutines(@PathVariable Integer id) {
         return routineService.findAllMyRoutines(id);
+    }
+
+    //Edit the fields of a routine
+    @PutMapping("/edit/{id}")
+    public ResponseEntity updateRoutine(@RequestBody Routine updatedRoutine, @PathVariable Integer id) {
+        routineService.editRoutine(updatedRoutine, id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
+
+    //Delete routine by id
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity deleteById(@PathVariable("id") Integer id) {
+        routineService.deleteRotineById(id);
+        return ResponseEntity.status(HttpStatus.GONE).build();
     }
 
 

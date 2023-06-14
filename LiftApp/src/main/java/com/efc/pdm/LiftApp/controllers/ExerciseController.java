@@ -23,59 +23,62 @@ public class ExerciseController {
     @Autowired
     ExerciseService exerciseService;
 
-    //DONE
+    //Get exercises verified by admin
     @GetMapping("/get/admin/verified")
     public List<Exercise> listVerified() {
         return exerciseService.VerifiedAdminExc();
     }
 
 
-    //DONE
+    //Get exercises verified adding a query
     @GetMapping("/search/user/verified/{query}")
     public List<Exercise> searchListVerified(@PathVariable String query) {
         return exerciseService.searchExcDatabase(query);
     }
+
+    //get data of a single exercise
 
     @GetMapping("/details/{id}")
     public Optional<Exercise> excDetails(@PathVariable Integer id) {
         return exerciseService.getExcDetails(id);
     }
 
+    //Edit an exercise
+
     @PutMapping("/edit/{id}")
-    public ResponseEntity updateExpense(@RequestBody Exercise updatedExc, @PathVariable Integer id) {
+    public ResponseEntity updateExc(@RequestBody Exercise updatedExc, @PathVariable Integer id) {
         exerciseService.editExc(updatedExc, id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
-
-    //DONE
+    //Create a verified Exercise
     @PostMapping("/post/admin/{id}")
     public ResponseEntity createExc(@RequestBody @Valid Exercise newExc, @PathVariable Integer id) {
         exerciseService.AddVerifiedExercise(newExc,id);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    //DONE
+    //Create a request to verify an exercise
     @PostMapping("/post/user/{id}")
     public ResponseEntity createExcUser(@RequestBody @Valid Exercise newExc, @PathVariable Integer id) {
         exerciseService.AddEarringExercise(newExc,id);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-    //DONE
+    ////Create a personal exercise
     @PostMapping("/post/user/personal/{id}")
     public ResponseEntity createMyExc(@RequestBody @Valid Exercise newExc, @PathVariable Integer id) {
         exerciseService.AddMyExercise(newExc,id);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    //DONE
+    //Delete a personal exercise
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteById(@PathVariable("id") Integer id) {
         exerciseService.deleteExerciseById(id);
         return ResponseEntity.status(HttpStatus.GONE).build();
     }
 
-    //DONE
+    //Deny an exercise verification request
     @DeleteMapping("/deny/{id}")
     public ResponseEntity denyExc(@PathVariable("id") Integer id) {
         exerciseService.denyExercise(id);
@@ -83,7 +86,7 @@ public class ExerciseController {
     }
 
 
-    //DONE
+    //Authorize an exercise verification request
     @PutMapping("/autorizar/{id}")
     public ResponseEntity authorizeByID(@PathVariable("id") Integer id) {
         exerciseService.AuthorizeExercise(id);
