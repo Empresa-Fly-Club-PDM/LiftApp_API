@@ -46,7 +46,6 @@ public class ExerciseService {
         return exerciseRepo.getExerciseByVerifiedAndOwnership(true,0);
     }
 
-
     /* Update exercise */
 
 
