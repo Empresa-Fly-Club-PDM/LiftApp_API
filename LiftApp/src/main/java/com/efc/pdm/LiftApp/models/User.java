@@ -30,9 +30,9 @@ public class User implements UserDetails {
     @Column(nullable= true, name = "fechanac")
     private String fechanac;
     @Column(nullable= true, name = "weight")
-    private String weight;
+    private Integer weight;
     @Column(nullable= true, name = "height")
-    private String height;
+    private Double height;
 
     @Column(nullable= false, name = "enabledstate")
     private Boolean enabledstate;
@@ -62,7 +62,7 @@ public class User implements UserDetails {
     //Constructor para usuario regular
 
 
-    public User(String nombrecompleto, String email, String password, Boolean passwordState, String genero, String fechanac, String weight, String height, Role role, Boolean enabledstate, Integer points) {
+    public User(String nombrecompleto, String email, String password, Boolean passwordState, String genero, String fechanac, Integer weight, Double height, Role role, Boolean enabledstate, Integer points) {
         this.nombrecompleto = nombrecompleto;
         this.email = email;
         this.password = password;
@@ -180,19 +180,19 @@ public class User implements UserDetails {
         this.fechanac = fechanac;
     }
 
-    public String getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
-    public String getHeight() {
+    public Double getHeight() {
         return height;
     }
 
-    public void setHeight(String height) {
+    public void setHeight(Double height) {
         this.height = height;
     }
 
