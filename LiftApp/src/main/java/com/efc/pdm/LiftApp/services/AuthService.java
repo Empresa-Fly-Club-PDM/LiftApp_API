@@ -3,6 +3,7 @@ package com.efc.pdm.LiftApp.services;
 import com.efc.pdm.LiftApp.auth.AuthRequest;
 import com.efc.pdm.LiftApp.auth.AuthResponse;
 import com.efc.pdm.LiftApp.jwt.JwtTokenUtil;
+import com.efc.pdm.LiftApp.models.Role;
 import com.efc.pdm.LiftApp.models.User;
 import com.efc.pdm.LiftApp.repositories.UserRepository;
 import com.efc.pdm.LiftApp.utils.Otp;
@@ -22,15 +23,19 @@ public class AuthService {
     @Autowired AuthenticationManager authManager;
     @Autowired JwtTokenUtil jwtUtil;
     @Autowired SendEmailService emailService;
+
+    //Registrar usuario como regular
     public User register(User newUser){
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         Double salary = 0.0, limit = 0.0;
         String rawPasword= newUser.getPassword();
         String encodedPassword=passwordEncoder.encode(rawPasword);
-        User auxuser = new User(newUser.getNombrecompleto(),newUser.getEmail(),encodedPassword, newUser.getRole(),Boolean.FALSE);
+        User auxuser = new User(newUser.getNombrecompleto(),newUser.getEmail(),encodedPassword,Boolean.FALSE,newUser.getGenero(),newUser.getFechanac(),newUser.getWeight(),newUser.getHeight(), Role.USER,Boolean.TRUE,0);
         User user = userRepo.save(auxuser);
         return user;
     }
+
+    //Login de usuario
     public AuthResponse login(AuthRequest request){
         Authentication authentication = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword())
@@ -41,10 +46,15 @@ public class AuthService {
         return response;
     }
 
+    //Buscar por email(deprecated)
     public User searchByEmail(String email) {
         User usuario = userRepo.UserfindExistence(email);
         return usuario;
     }
+
+
+    //Función de cambio de contraseña
+
     public Optional<User> changePasswordOTP(String email) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return userRepo.findByEmail(email)

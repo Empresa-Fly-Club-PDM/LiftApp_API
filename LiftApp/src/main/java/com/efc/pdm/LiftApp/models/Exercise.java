@@ -1,6 +1,8 @@
 package com.efc.pdm.LiftApp.models;
 
 
+import net.bytebuddy.description.modifier.Ownership;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,32 +12,31 @@ public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(nullable = false, unique = true, length = 150, name = "nombre")
+    @Column(nullable = false, length = 150, name = "nombre")
     private String name;
-    @Column(nullable = false, unique = true, length = 20, name = "musculo")
+    @Column(nullable = false, length = 20, name = "musculo")
     private String muscle;
-    @Column(nullable = false, unique = true, length = 20, name = "dificultad")
+    @Column(nullable = false, length = 20, name = "dificultad")
     private String difficulty;
-    @Column(nullable = false, unique = true, length = 50, name = "tipo")
+    @Column(nullable = false, length = 50, name = "tipo")
     private String type;
-    @Column(nullable = false, unique = true, length = 250, name = "descripcion")
+    @Column(nullable = false, length = 250, name = "descripcion")
     private String description;
     @Column(nullable = false, name = "sets")
     private Integer sets;
     @Column(nullable = false, name = "reps")
     private Integer reps;
-    @Column(name = "verificado")
+    @Column(nullable = false ,name = "verificado")
     private boolean verified;
 
-    @JoinColumn(name = "rutina_idRutina", referencedColumnName = "id")
-    @ManyToOne
-    private Routine id_routine;
+    @Column(nullable = false ,name = "ownership")
+    private Integer ownership;
 
-    @JoinColumn(name = "rutina_User_idUser", referencedColumnName = "User_idUser")
     @ManyToOne
-    private User id_user;
+    private User user;
 
-    public Exercise(String name, String muscle, String difficulty, String type, String description, Integer sets, Integer reps) {
+
+    public Exercise(String name, String muscle, String difficulty, String type, String description, Integer sets, Integer reps, boolean verified, User user, Integer Ownership){
         this.name = name;
         this.muscle = muscle;
         this.difficulty = difficulty;
@@ -43,6 +44,14 @@ public class Exercise {
         this.description = description;
         this.sets = sets;
         this.reps = reps;
+        this.verified = verified;
+        this.user = user;
+        this.ownership = Ownership;
+    }
+
+    public Exercise(Integer idExercise){
+        super();
+        this.id=idExercise;
     }
 
     public Exercise() {
@@ -120,5 +129,21 @@ public class Exercise {
 
     public void setVerified(boolean verified) {
         this.verified = verified;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Integer getOwnership() {
+        return ownership;
+    }
+
+    public void setOwnership(Integer ownership) {
+        this.ownership = ownership;
     }
 }

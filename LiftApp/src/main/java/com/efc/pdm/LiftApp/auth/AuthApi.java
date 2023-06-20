@@ -1,6 +1,7 @@
 package com.efc.pdm.LiftApp.auth;
 
 import com.efc.pdm.LiftApp.models.User;
+import com.efc.pdm.LiftApp.repositories.UserRepository;
 import com.efc.pdm.LiftApp.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -16,6 +18,7 @@ import javax.validation.Valid;
 public class AuthApi {
 	@Autowired
 	AuthService authService;
+
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody @Valid AuthRequest request){
 		try {
@@ -24,12 +27,12 @@ public class AuthApi {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
 	}
-	
+
 	@PostMapping("/register")
 	public ResponseEntity createUser(@RequestBody @Valid User newUser) {
-			authService.register(newUser);
-			return ResponseEntity.status(HttpStatus.CREATED).build();
-		}
+		authService.register(newUser);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
 
 	@GetMapping("/recoverpassword")
 	public ResponseEntity recoverPassword(@RequestBody String email) {

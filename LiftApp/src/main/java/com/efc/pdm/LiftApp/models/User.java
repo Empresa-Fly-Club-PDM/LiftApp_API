@@ -21,23 +21,59 @@ public class User implements UserDetails {
     private String email;
     @Column(nullable= false, length=128, name = "password")
     private String password;
-
     @Column(nullable= false, name = "password_state")
     private Boolean passwordState;
+
+    @Column(nullable= true, name = "genero")
+    private String genero;
+
+    @Column(nullable= true, name = "fechanac")
+    private String fechanac;
+    @Column(nullable= true, name = "weight")
+    private Integer weight;
+    @Column(nullable= true, name = "height")
+    private Double height;
+
+    @Column(nullable= false, name = "enabledstate")
+    private Boolean enabledstate;
+
+    @Column(nullable= true, name = "points")
+    private Integer points;
 
     @Column(nullable= false, name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;
 
+
     public User() {
     }
 
-    public User(String nombrecompleto, String email, String password, Role role, Boolean passwordState) {
+    //Constructor para administradores
+
+    public User(String nombrecompleto, String email, String password, Role role, Boolean passwordState, Boolean enabledstate) {
         this.nombrecompleto = nombrecompleto;
         this.email = email;
         this.password = password;
         this.role = role;
         this.passwordState = passwordState;
+        this.enabledstate = enabledstate;
+    }
+
+    //Constructor para usuario regular
+
+
+    public User(String nombrecompleto, String email, String password, Boolean passwordState, String genero, String fechanac, Integer weight, Double height, Role role, Boolean enabledstate, Integer points) {
+        this.nombrecompleto = nombrecompleto;
+        this.email = email;
+        this.password = password;
+        this.passwordState = passwordState;
+        this.genero = genero;
+        this.fechanac = fechanac;
+        this.weight = weight;
+        this.height = height;
+        this.role = role;
+        this.enabledstate = enabledstate;
+        this.points = points;
     }
 
     @Override
@@ -76,8 +112,11 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        // TODO Auto-generated method stub
-        return true;
+        if(enabledstate == Boolean.TRUE){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public Integer getId() {
@@ -123,5 +162,53 @@ public class User implements UserDetails {
 
     public void setPasswordState(Boolean passwordState) {
         this.passwordState = passwordState;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getFechanac() {
+        return fechanac;
+    }
+
+    public void setFechanac(String fechanac) {
+        this.fechanac = fechanac;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
+    public Double getHeight() {
+        return height;
+    }
+
+    public void setHeight(Double height) {
+        this.height = height;
+    }
+
+    public Boolean getEnabledstate() {
+        return enabledstate;
+    }
+
+    public void setEnabledstate(Boolean enabledstate) {
+        this.enabledstate = enabledstate;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
     }
 }
