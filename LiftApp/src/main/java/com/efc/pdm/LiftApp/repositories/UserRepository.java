@@ -12,10 +12,14 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 
     @Query("SELECT u FROM User u WHERE u.email =:email")
     User UserfindExistence(String email);
-    @Query("SELECT u FROM User u WHERE u.role = 'USER' AND u.enabledstate = TRUE ORDER BY u.points ASC")
-    List<User> getTop5();
+    @Query("SELECT u FROM User u WHERE u.role = 'USER' AND u.enabledstate = TRUE AND u.enabledstate = true AND (u.email LIKE CONCAT('%',:query, '%') OR u.nombrecompleto LIKE CONCAT('%',:query, '%') OR u.fechanac LIKE CONCAT('%',:query, '%') OR u.genero LIKE CONCAT('%',:query, '%') OR u.height LIKE CONCAT('%',:query, '%') OR u.weight LIKE CONCAT('%',:query, '%')) ORDER BY u.points ASC")
+    List<User> getTop5(String query);
 
-    List<User>findAllByRole(Role role);
+    @Query("SELECT u FROM User u WHERE u.role = 'USER' AND u.enabledstate = TRUE AND u.enabledstate = true AND (u.email LIKE CONCAT('%',:query, '%') OR u.nombrecompleto LIKE CONCAT('%',:query, '%') OR u.fechanac LIKE CONCAT('%',:query, '%') OR u.genero LIKE CONCAT('%',:query, '%') OR u.height LIKE CONCAT('%',:query, '%') OR u.weight LIKE CONCAT('%',:query, '%'))")
+    List<User> searchFromAllUser(String query);
+
+    @Query("SELECT u FROM User u WHERE u.role = 'ADMIN' AND u.enabledstate = true AND  (u.email LIKE CONCAT('%',:query, '%') OR u.nombrecompleto LIKE CONCAT('%',:query, '%') )")
+    List<User> SearchFromAllAdmins(String query);
 
 
 }

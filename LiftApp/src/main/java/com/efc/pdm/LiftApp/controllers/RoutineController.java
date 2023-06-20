@@ -46,7 +46,7 @@ public class RoutineController {
 
     //Get Users Routine
     @GetMapping("/myRoutines/{id}")
-    public List<Routine> getMyRoutines(@PathVariable Integer id) {
+    public List<Routine> getMyRoutines(@RequestParam("query")String query ,@PathVariable Integer id) {
         return routineService.findAllMyRoutines(id);
     }
 

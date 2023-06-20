@@ -22,8 +22,8 @@ public class ExerciseService {
     //Consideraciones en el servicio:
     //Administrador
     //Administrador debe ver todas las solicitudes de los usuarios verified = false, ownership = 1(pertenece a pendientes)
-    public List<Exercise> EarringUserExc() {
-        return exerciseRepo.getExerciseByVerifiedAndOwnership(false,1);
+    public List<Exercise> EarringUserExc(String query) {
+        return exerciseRepo.getExerciseByVerifiedAndOwnership(false,1,query);
     }
 
     //Administrador debe poder aprobarlo(verified = true, ownership pasa a 0 owned by app, envia un correo notificando al user)
@@ -42,8 +42,12 @@ public class ExerciseService {
     }
 
     //Administrador debe poder visualizar la base de datos oficial (verified true, ownership en 0)
-    public List<Exercise> VerifiedAdminExc() {
-        return exerciseRepo.getExerciseByVerifiedAndOwnership(true,0);
+    public List<Exercise> VerifiedAdminExc(String query) {
+        return exerciseRepo.getExerciseByVerifiedAndOwnership(true,0,query);
+    }
+
+    public List<Exercise> GetMyExercises(String query) {
+        return exerciseRepo.getExerciseByVerifiedAndOwnership(false,2,query);
     }
 
     /* Update exercise */

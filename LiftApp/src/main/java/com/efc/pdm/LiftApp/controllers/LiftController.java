@@ -19,8 +19,8 @@ public class LiftController {
     LiftService liftService;
 
     @GetMapping("/mylifts/{id}")
-    public List<Lift> getMyRecords(@PathVariable Integer id) {
-        return liftService.AllMyRecords(id);
+    public List<Lift> getMyRecords(@RequestParam("query") String query, @PathVariable Integer id) {
+        return liftService.AllMyRecords(id, query);
     }
     @GetMapping("/myHighlight/{id}")
     public Lift getBestLift(@PathVariable Integer id) {

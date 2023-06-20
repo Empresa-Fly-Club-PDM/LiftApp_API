@@ -57,8 +57,8 @@ public class LiftService {
     }
 
     //Get all my records
-    public List<Lift> AllMyRecords(Integer id) {
-        return liftRepository.findAllMyRecords(id);
+    public List<Lift> AllMyRecords(Integer id, String query) {
+        return liftRepository.findAllMyRecords(id, query);
     }
 
     //Get My Best lift
