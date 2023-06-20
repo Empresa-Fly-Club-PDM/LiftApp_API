@@ -10,13 +10,13 @@ public class Routine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(nullable = false, unique = true, length = 150, name = "nombre")
+    @Column(nullable = false, length = 150, name = "nombre")
     private String name;
-    @Column(nullable = false, unique = true, length = 20, name = "dificultad")
+    @Column(nullable = false, length = 20, name = "dificultad")
     private String difficulty;
-    @Column(nullable = false, unique = true, length = 50, name = "tiempo")
+    @Column(nullable = false, length = 50, name = "tiempo")
     private String time;
-    @Column(nullable = false, unique = true, length = 250, name = "tag")
+    @Column(nullable = false, length = 250, name = "tag")
     private String tag;
     @ManyToOne
     private User user;
