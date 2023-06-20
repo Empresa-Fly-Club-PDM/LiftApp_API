@@ -36,8 +36,8 @@ public class UsuarioController {
 
 	//OBTENER TOP 5
 	@GetMapping("/top5")
-	public List<User> findTopFive() {
-		return userService.gettopFive();
+	public List<User> findTopFive(@RequestParam("query") String query) {
+		return userService.gettopFive(query);
 	}
 
 	//Edit user
@@ -75,8 +75,13 @@ public class UsuarioController {
 
 	//Get all admins
 	@GetMapping("/get/admins")
-	public List<User> findAllAdmins() {
-		return userService.getAllAdmins();
+	public List<User> findAllAdmins(@RequestParam("query") String query) {
+		return userService.getAllAdmins(query);
+	}
+
+	@GetMapping("/get/users")
+	public List<User> findAllUsers(@RequestParam("query") String query) {
+		return userService.SearchAllUsers(query);
 	}
 
 }

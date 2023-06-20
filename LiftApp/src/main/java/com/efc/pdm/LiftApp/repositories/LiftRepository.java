@@ -15,6 +15,6 @@ public interface LiftRepository extends JpaRepository<Lift,Integer> {
     @Query("SELECT l from Lift l INNER JOIN l.user u WHERE u.id = :id AND l.liftpoints = (SELECT MAX(l.liftpoints) from Lift l)")
     List<Lift> determineBestLift(Integer id);
 
-    @Query("SELECT l from Lift l INNER JOIN l.user u WHERE u.id = :id")
-    List<Lift> findAllMyRecords(Integer id);
+    @Query("SELECT l from Lift l INNER JOIN l.user u WHERE u.id = :id AND(l.exercisename LIKE CONCAT('%',:query, '%'))")
+    List<Lift> findAllMyRecords(Integer id, String query);
 }

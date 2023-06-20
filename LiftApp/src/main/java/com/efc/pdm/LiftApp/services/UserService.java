@@ -81,11 +81,13 @@ public class UserService {
         return userRepo.findById(id);
     }
 
-    public List<User> gettopFive(){
-        return  userRepo.getTop5();
+    public List<User> gettopFive(String query){
+        return  userRepo.getTop5(query);
     }
 
-
+    public List<User>SearchAllUsers(String query){
+        return userRepo.searchFromAllUser(query);
+    };
 
     //Cambiar contraseña del usuario
     public Optional<User> changePassword(String newPassword, Integer id) {
@@ -100,8 +102,8 @@ public class UserService {
     }
 
     //Get all admins by Role
-    public List<User> getAllAdmins() {
-        return userRepo.findAllByRole(Role.ADMIN);
+    public List<User> getAllAdmins(String query) {
+        return userRepo.SearchFromAllAdmins(query);
     }
 
     public Optional<User> Delete(Integer id) {

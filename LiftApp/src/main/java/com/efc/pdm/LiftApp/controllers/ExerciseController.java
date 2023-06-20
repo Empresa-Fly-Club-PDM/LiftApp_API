@@ -25,14 +25,24 @@ public class ExerciseController {
 
     //Get exercises verified by admin
     @GetMapping("/get/admin/verified")
-    public List<Exercise> listVerified() {
-        return exerciseService.VerifiedAdminExc();
+    public List<Exercise> listVerified(@RequestParam("query") String query) {
+        return exerciseService.VerifiedAdminExc(query);
+    }
+
+    @GetMapping("/get/admin/earring")
+    public List<Exercise> listearring(@RequestParam("query") String query) {
+        return exerciseService.EarringUserExc(query);
+    }
+
+    @GetMapping("/get/users")
+    public List<Exercise> listMyExercises(@RequestParam("query") String query) {
+        return exerciseService.GetMyExercises(query);
     }
 
 
     //Get exercises verified adding a query
-    @GetMapping("/search/user/verified/{query}")
-    public List<Exercise> searchListVerified(@PathVariable String query) {
+    @GetMapping("/search/user/verified")
+    public List<Exercise> searchListVerified(@RequestParam("query")  String query) {
         return exerciseService.searchExcDatabase(query);
     }
 
