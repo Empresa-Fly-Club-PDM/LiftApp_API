@@ -1,4 +1,3 @@
-# For Java 11, try this
 FROM openjdk
 
 # Refer to Maven build -> finalName
