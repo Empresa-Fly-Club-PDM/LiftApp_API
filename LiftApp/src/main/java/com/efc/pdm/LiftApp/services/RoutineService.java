@@ -45,8 +45,8 @@ public class RoutineService {
     }
 
     //Get the whole routine
-    public List<Routine>findAllMyRoutines(Integer id){
-        return routineRepository.getAllMyRoutines(id);
+    public List<Routine>findAllMyRoutines(Integer id,String query){
+        return routineRepository.getAllMyRoutines(id,query);
     }
 
     //Edit the fields of a routine not included the exercises of this one
