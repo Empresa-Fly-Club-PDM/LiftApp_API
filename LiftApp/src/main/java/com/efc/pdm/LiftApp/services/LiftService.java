@@ -63,6 +63,10 @@ public class LiftService {
 
     //Get My Best lift
     public Lift BestLift(Integer id) {
+        if(liftRepository.findUserBestLift(id)==null){
+            Lift voidlift = new Lift();
+            return voidlift;
+        }
         return liftRepository.findUserBestLift(id);
     }
 
