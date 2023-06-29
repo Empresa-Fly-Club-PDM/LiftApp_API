@@ -89,8 +89,8 @@ public class ExerciseService {
     //Usuario
     //Usuario debe poder ver sus ejercicios (verified = false, ownership 2) join a usuarios para ver por id de usuario
 
-    public List<Exercise> getPersonalExc(Integer id) {
-        return exerciseRepo.getMyExercises(id);
+    public List<Exercise> getPersonalExc(Integer id,String query) {
+        return exerciseRepo.getMyExercises(id,query);
     }
     //El usuario debe poder ingresar una petición para verificación (verified false, ownership 1)
     public Exercise AddEarringExercise(Exercise newExc, Integer id) {
@@ -106,8 +106,8 @@ public class ExerciseService {
     }
 
     //El usuario debe poder buscar entre sus ejercicios y los ejercicios globales primero los suyos (Query ownership 0 y 2)
-    public List<Exercise> searchExcDatabase(String query){
-        return exerciseRepo.searchExercises(query);
+    public List<Exercise> searchExcDatabase(String query,Integer userid){
+        return exerciseRepo.searchExercises(query,userid);
     }
 
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface RoutineRepository  extends JpaRepository<Routine, Integer> {
-    @Query("SELECT r.exercises FROM Routine r")
+    @Query("SELECT r.exercises FROM Routine r WHERE r.id = :id")
     List<Exercise> getRoutineExercise(Integer id);
 
     @Query("SELECT r FROM Routine r INNER JOIN r.user u WHERE u.id=:id AND (r.difficulty LIKE CONCAT('%',:query, '%') OR r.name LIKE CONCAT('%',:query, '%') OR r.tag LIKE CONCAT('%',:query, '%') OR r.time LIKE CONCAT('%',:query, '%'))")

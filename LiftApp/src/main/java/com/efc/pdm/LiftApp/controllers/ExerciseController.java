@@ -35,16 +35,16 @@ public class ExerciseController {
         return exerciseService.EarringUserExc(query);
     }
 
-    @GetMapping("/get/users")
-    public List<Exercise> listMyExercises(@RequestParam("query") String query) {
-        return exerciseService.GetMyExercises(query);
+    @GetMapping("/get/users/{id}")
+    public List<Exercise> listMyExercises(@RequestParam("query") String query,@PathVariable Integer id) {
+        return exerciseService.getPersonalExc(id,query);
     }
 
 
     //Get exercises verified adding a query
-    @GetMapping("/search/user/verified")
-    public List<Exercise> searchListVerified(@RequestParam("query")  String query) {
-        return exerciseService.searchExcDatabase(query);
+    @GetMapping("/search/user/verified/{id}")
+    public List<Exercise> searchListVerified(@RequestParam("query")  String query,@PathVariable Integer id) {
+        return exerciseService.searchExcDatabase(query,id);
     }
 
     //get data of a single exercise
