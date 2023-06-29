@@ -14,9 +14,9 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Integer> {
     List<Exercise>getExerciseByVerifiedAndOwnership(Boolean verified, Integer ownership,String query);
     @Query("SELECT e FROM Exercise e INNER JOIN e.user u WHERE u.id=:id AND(e.name LIKE CONCAT('%',:query, '%') Or e.muscle LIKE CONCAT('%', :query, '%') Or e.difficulty LIKE CONCAT('%', :query, '%') Or e.type LIKE CONCAT('%', :query, '%') Or e.description LIKE CONCAT('%', :query, '%') )")
     List<Exercise> getMyExercises(Integer id,String query);
-
-    @Query("SELECT e FROM Exercise e INNER JOIN e.user u WHERE e.ownership = 0 OR u.id = :userid AND (e.name LIKE CONCAT('%',:query, '%') Or e.muscle LIKE CONCAT('%', :query, '%') Or e.difficulty LIKE CONCAT('%', :query, '%') Or e.type LIKE CONCAT('%', :query, '%') Or e.description LIKE CONCAT('%', :query, '%') )")
+    @Query("SELECT e FROM Exercise e INNER JOIN e.user u WHERE (e.verified=true AND (e.name LIKE CONCAT('%',:query, '%') Or e.muscle LIKE CONCAT('%', :query, '%') Or e.difficulty LIKE CONCAT('%', :query, '%') Or e.type LIKE CONCAT('%', :query, '%') Or e.description LIKE CONCAT('%', :query, '%') )) OR (u.id = :userid AND (e.name LIKE CONCAT('%',:query, '%') Or e.muscle LIKE CONCAT('%', :query, '%') Or e.difficulty LIKE CONCAT('%', :query, '%') Or e.type LIKE CONCAT('%', :query, '%') Or e.description LIKE CONCAT('%', :query, '%') ))")
     List<Exercise> searchExercises(String query,Integer userid);
+
 
 
 }
