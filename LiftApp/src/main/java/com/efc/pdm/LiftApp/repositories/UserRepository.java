@@ -18,6 +18,9 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     @Query("SELECT u FROM User u WHERE u.role = 'USER' AND u.enabledstate = TRUE AND u.enabledstate = true AND (u.email LIKE CONCAT('%',:query, '%') OR u.nombrecompleto LIKE CONCAT('%',:query, '%') OR u.fechanac LIKE CONCAT('%',:query, '%') OR u.genero LIKE CONCAT('%',:query, '%') OR u.height LIKE CONCAT('%',:query, '%') OR u.weight LIKE CONCAT('%',:query, '%'))")
     List<User> searchFromAllUser(String query);
 
+    @Query("SELECT u FROM User u WHERE u.id != :searchingUserId AND u.id NOT IN (SELECT CASE WHEN f.firstUser.id = :searchingUserId THEN f.secondUser.id ELSE f.firstUser.id END FROM Friends f WHERE f.firstUser.id = :searchingUserId OR f.secondUser.id = :searchingUserId) AND u.role != com.efc.pdm.LiftApp.models.Role.ADMIN AND (u.email LIKE CONCAT('%',:query, '%') OR u.nombrecompleto LIKE CONCAT('%',:query, '%') OR u.fechanac LIKE CONCAT('%',:query, '%') OR u.genero LIKE CONCAT('%',:query, '%') OR u.height LIKE CONCAT('%',:query, '%') OR u.weight LIKE CONCAT('%',:query, '%'))")
+    List<User> findNonFriendUsers(Integer searchingUserId,String query);
+
     @Query("SELECT u FROM User u WHERE u.role = 'ADMIN' AND u.enabledstate = true AND  (u.email LIKE CONCAT('%',:query, '%') OR u.nombrecompleto LIKE CONCAT('%',:query, '%') )")
     List<User> SearchFromAllAdmins(String query);
 

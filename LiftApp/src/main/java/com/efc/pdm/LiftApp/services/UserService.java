@@ -85,8 +85,8 @@ public class UserService {
         return  userRepo.getTop5(query);
     }
 
-    public List<User>SearchAllUsers(String query){
-        return userRepo.searchFromAllUser(query);
+    public List<User>SearchAllUsers(Integer id,String query){
+        return userRepo.findNonFriendUsers(id,query);
     };
 
     //Cambiar contraseña del usuario

@@ -80,9 +80,9 @@ public class UsuarioController {
 		return userService.getAllAdmins(query);
 	}
 
-	@GetMapping("/get/users")
-	public List<User> findAllUsers(@RequestParam("query") String query) {
-		return userService.SearchAllUsers(query);
+	@GetMapping("/get/users/{id}")
+	public List<User> findAllUsers(@PathVariable Integer id,@RequestParam("query") String query ) {
+		return userService.SearchAllUsers(id,query);
 	}
 
 }
