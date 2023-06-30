@@ -30,7 +30,7 @@ public class User implements UserDetails {
     @Column(nullable= true, name = "fechanac")
     private String fechanac;
     @Column(nullable= true, name = "weight")
-    private Integer weight;
+    private Double weight;
     @Column(nullable= true, name = "height")
     private Double height;
 
@@ -38,7 +38,7 @@ public class User implements UserDetails {
     private Boolean enabledstate;
 
     @Column(nullable= true, name = "points")
-    private Integer points;
+    private double points;
 
     @Column(nullable= false, name = "role")
     @Enumerated(EnumType.STRING)
@@ -62,7 +62,7 @@ public class User implements UserDetails {
     //Constructor para usuario regular
 
 
-    public User(String nombrecompleto, String email, String password, Boolean passwordState, String genero, String fechanac, Integer weight, Double height, Role role, Boolean enabledstate, Integer points) {
+    public User(String nombrecompleto, String email, String password, Boolean passwordState, String genero, String fechanac, Double weight, Double height, Role role, Boolean enabledstate, Integer points) {
         this.nombrecompleto = nombrecompleto;
         this.email = email;
         this.password = password;
@@ -180,11 +180,11 @@ public class User implements UserDetails {
         this.fechanac = fechanac;
     }
 
-    public Integer getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
@@ -204,11 +204,11 @@ public class User implements UserDetails {
         this.enabledstate = enabledstate;
     }
 
-    public Integer getPoints() {
+    public double getPoints() {
         return points;
     }
 
-    public void setPoints(Integer points) {
+    public void setPoints(double points) {
         this.points = points;
     }
 }

@@ -18,7 +18,7 @@ public class Lift {
     private Integer reps;
 
     @Column(nullable = false, name = "liftpoints")
-    private Integer liftpoints;
+    private double liftpoints;
 
     @Column(nullable = false, name = "highlight")
     private Boolean highlight;
@@ -31,7 +31,7 @@ public class Lift {
     public Lift() {
     }
 
-    public Lift(String exercisename, Integer weight, Integer reps, Integer liftpoints, Boolean highlight, User user) {
+    public Lift(String exercisename, Integer weight, Integer reps, double liftpoints, Boolean highlight, User user) {
         this.exercisename = exercisename;
         this.weight = weight;
         this.reps = reps;
@@ -88,11 +88,11 @@ public class Lift {
         this.highlight = highlight;
     }
 
-    public Integer getLiftpoints() {
+    public double getLiftpoints() {
         return liftpoints;
     }
 
-    public void setLiftpoints(Integer liftpoints) {
+    public void setLiftpoints(double liftpoints) {
         this.liftpoints = liftpoints;
     }
 }

@@ -26,8 +26,8 @@ public class LiftService {
     public Lift AddNewRecord(Lift newlift, Integer idExercise, Integer idUser) {
         Exercise auxexc = exerciseRepository.getReferenceById(idExercise);
         User user = userRepository.getReferenceById(idUser);
-        Integer points = (newlift.getWeight() / 8) * user.getWeight();
-        Integer actualPoints = user.getPoints();
+        double points = (newlift.getWeight() / 8) * user.getWeight();
+        double actualPoints = user.getPoints();
         user.setPoints(points+actualPoints);
         Lift PreviousBest = liftRepository.findUserBestLift(user.getId());
         Boolean highlight = Boolean.FALSE;
@@ -47,7 +47,7 @@ public class LiftService {
     public void deleteLift(Integer id) {
         Lift dellift = liftRepository.getReferenceById(id);
         User user = dellift.getUser();
-        Integer actualPoints = user.getPoints();
+        double actualPoints = user.getPoints();
         user.setPoints(actualPoints-dellift.getLiftpoints());
         liftRepository.delete(dellift);
         List<Lift> newBestLift = liftRepository.determineBestLift(user.getId());

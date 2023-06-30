@@ -1,6 +1,5 @@
 package com.efc.pdm.LiftApp.services;
 
-import com.efc.pdm.LiftApp.models.Exercise;
 import com.efc.pdm.LiftApp.models.Role;
 import com.efc.pdm.LiftApp.models.User;
 import com.efc.pdm.LiftApp.repositories.UserRepository;
