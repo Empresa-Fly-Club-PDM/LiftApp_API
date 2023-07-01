@@ -8,7 +8,7 @@ public class Lift {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(nullable = true, length = 150, name = "nombre")
+    @Column(nullable = false, length = 150, name = "nombre")
     private String exercisename;
 
     @Column(nullable = false, name = "weight")
@@ -18,12 +18,10 @@ public class Lift {
     private Integer reps;
 
     @Column(nullable = false, name = "liftpoints")
-    private double liftpoints;
+    private Integer liftpoints;
 
     @Column(nullable = false, name = "highlight")
     private Boolean highlight;
-
-
 
     @ManyToOne
     private User user;
@@ -31,7 +29,7 @@ public class Lift {
     public Lift() {
     }
 
-    public Lift(String exercisename, Integer weight, Integer reps, double liftpoints, Boolean highlight, User user) {
+    public Lift(String exercisename, Integer weight, Integer reps, Integer liftpoints, Boolean highlight, User user) {
         this.exercisename = exercisename;
         this.weight = weight;
         this.reps = reps;
@@ -88,11 +86,11 @@ public class Lift {
         this.highlight = highlight;
     }
 
-    public double getLiftpoints() {
+    public Integer getLiftpoints() {
         return liftpoints;
     }
 
-    public void setLiftpoints(double liftpoints) {
+    public void setLiftpoints(Integer liftpoints) {
         this.liftpoints = liftpoints;
     }
 }

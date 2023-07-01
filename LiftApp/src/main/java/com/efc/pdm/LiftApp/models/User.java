@@ -30,15 +30,15 @@ public class User implements UserDetails {
     @Column(nullable= true, name = "fechanac")
     private String fechanac;
     @Column(nullable= true, name = "weight")
-    private Double weight;
+    private Integer weight;
     @Column(nullable= true, name = "height")
-    private Double height;
+    private Integer height;
 
     @Column(nullable= false, name = "enabledstate")
     private Boolean enabledstate;
 
     @Column(nullable= true, name = "points")
-    private double points;
+    private Integer points;
 
     @Column(nullable= false, name = "role")
     @Enumerated(EnumType.STRING)
@@ -62,7 +62,7 @@ public class User implements UserDetails {
     //Constructor para usuario regular
 
 
-    public User(String nombrecompleto, String email, String password, Boolean passwordState, String genero, String fechanac, Double weight, Double height, Role role, Boolean enabledstate, Integer points) {
+    public User(String nombrecompleto, String email, String password, Boolean passwordState, String genero, String fechanac, Integer weight, Integer height, Role role, Boolean enabledstate, Integer points) {
         this.nombrecompleto = nombrecompleto;
         this.email = email;
         this.password = password;
@@ -180,19 +180,19 @@ public class User implements UserDetails {
         this.fechanac = fechanac;
     }
 
-    public Double getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(Double weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
-    public Double getHeight() {
+    public Integer getHeight() {
         return height;
     }
 
-    public void setHeight(Double height) {
+    public void setHeight(Integer height) {
         this.height = height;
     }
 
@@ -204,11 +204,11 @@ public class User implements UserDetails {
         this.enabledstate = enabledstate;
     }
 
-    public double getPoints() {
+    public Integer getPoints() {
         return points;
     }
 
-    public void setPoints(double points) {
+    public void setPoints(Integer points) {
         this.points = points;
     }
 }
