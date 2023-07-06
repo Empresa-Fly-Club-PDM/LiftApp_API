@@ -61,7 +61,7 @@ public class AuthService {
                 .map(user -> {
                     Otp otp = new Otp();
                     String auxotp = otp.generateOTP(8);
-                    emailService.sendEmail(user.getEmail(), "Saludos "+user.getNombrecompleto()+" este correo es para informarle que se ha cambiado su contraseña, favor usar contraseña provisional: " + auxotp, "Cambio de contraseña Expense Tracker");
+                    emailService.sendEmail(user.getEmail(), "Saludos "+user.getNombrecompleto()+" este correo es para informarle que se ha cambiado su contraseña, favor usar contraseña provisional: " + auxotp, "Cambio de contraseña Liftapp");
                     String encodedPassword=passwordEncoder.encode(auxotp);
                     user.setPassword(encodedPassword);
                     user.setPasswordState(Boolean.TRUE);
