@@ -34,7 +34,7 @@ public class AuthApi {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
-	@GetMapping("/recoverpassword")
+	@PostMapping("/recoverpassword")
 	public ResponseEntity recoverPassword(@RequestBody String email) {
 		User recoveryUser = authService.searchByEmail(email);
 		if(recoveryUser != null){
