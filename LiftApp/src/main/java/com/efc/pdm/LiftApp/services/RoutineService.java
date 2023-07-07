@@ -66,6 +66,9 @@ public class RoutineService {
         Routine delroutine = routineRepository.getReferenceById(id);
         routineRepository.delete(delroutine);
     }
+    public Optional<Routine> getRoutineInfo(Integer id) {
+        return routineRepository.findById(id);
+    }
 
 
 }

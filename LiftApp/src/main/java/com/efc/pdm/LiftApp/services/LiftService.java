@@ -2,6 +2,7 @@ package com.efc.pdm.LiftApp.services;
 
 import com.efc.pdm.LiftApp.models.Exercise;
 import com.efc.pdm.LiftApp.models.Lift;
+import com.efc.pdm.LiftApp.models.Routine;
 import com.efc.pdm.LiftApp.models.User;
 import com.efc.pdm.LiftApp.repositories.ExerciseRepository;
 import com.efc.pdm.LiftApp.repositories.LiftRepository;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LiftService {
@@ -69,6 +71,11 @@ public class LiftService {
         }
         return liftRepository.findUserBestLift(id);
     }
+
+    public Optional<Lift> getLiftDetail(Integer id) {
+        return liftRepository.findById(id);
+    }
+
 
 
 

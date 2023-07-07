@@ -2,6 +2,7 @@ package com.efc.pdm.LiftApp.controllers;
 
 import com.efc.pdm.LiftApp.models.Exercise;
 import com.efc.pdm.LiftApp.models.Lift;
+import com.efc.pdm.LiftApp.models.Routine;
 import com.efc.pdm.LiftApp.services.LiftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -38,6 +40,11 @@ public class LiftController {
     public ResponseEntity deleteById(@PathVariable("id") Integer id) {
         liftService.deleteLift(id);
         return ResponseEntity.status(HttpStatus.GONE).build();
+    }
+
+    @GetMapping("/detail/{id}")
+    public Optional<Lift> excDetails(@PathVariable Integer id) {
+        return liftService.getLiftDetail(id);
     }
 
 }

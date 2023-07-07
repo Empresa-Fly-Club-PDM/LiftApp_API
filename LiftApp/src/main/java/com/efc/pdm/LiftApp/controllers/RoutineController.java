@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -63,6 +64,11 @@ public class RoutineController {
     public ResponseEntity deleteById(@PathVariable("id") Integer id) {
         routineService.deleteRotineById(id);
         return ResponseEntity.status(HttpStatus.GONE).build();
+    }
+
+    @GetMapping("/info/{id}")
+    public Optional<Routine> excDetails(@PathVariable Integer id) {
+        return routineService.getRoutineInfo(id);
     }
 
 
